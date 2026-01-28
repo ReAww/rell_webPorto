@@ -11,16 +11,18 @@ import Footer from './components/Footer'
 
 export default function App() {
   return (
-    <>
-    <Header />
-    <Hero />
-    <About />
-    <Projects />
-    <CaseStudies />
-    <Testimonials />
-    <ContactForm />
-    <Footer />
-    </>
+    <div className="min-h-screen flex flex-col bg-deep-charcoal text-soft-ivory">
+      <Header />
+      <main className="flex-1">
+        <Hero />
+        <About />
+        <Projects />
+        <CaseStudies />
+        <Testimonials />
+        <ContactForm />
+      </main>
+      <Footer />
+    </div>
   )
 }
   

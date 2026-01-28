@@ -26,7 +26,7 @@
 @layer components {
   .profile-wrapper {
     position: relative;
-    @apply inline-block rounded-full overflow-hidden bg-shadow-grey w-56 h-56 p-2 shadow-2xl;
+    @apply inline-block rounded-full overflow-hidden bg-shadow-grey w-40 h-40 md:w-56 md:h-56 p-2 shadow-2xl;
     /* subtle smoothing for transforms */
     @apply transition-transform duration-500 ease-[cubic-bezier(.2,.8,.2,1)];
   }
