@@ -1,10 +1,17 @@
 // Small IntersectionObserver to add 'in-view' class to elements with `data-animate`
-const prefersReduced = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
-
 export default function initAnimations(){
-  if(prefersReduced) return
+  // evaluate prefers-reduced-motion at runtime so users who opt-out still see content
+  const prefersReduced = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
   const els = document.querySelectorAll('[data-animate]')
   if(!els.length) return
+
+  // If user prefers reduced motion, immediately reveal elements (don't animate)
+  if(prefersReduced){
+    els.forEach(el => el.classList.add('in-view'))
+    return
+  }
+
   const io = new IntersectionObserver((entries)=>{
     entries.forEach(e=>{
       if(e.isIntersecting){
