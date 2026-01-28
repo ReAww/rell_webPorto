@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function About(){
   return (
-    <section id="about" className="py-12">
+    <section id="about" className="py-12 anim-fade-up" data-animate>
       <div className="max-w-7xl mx-auto px-4">
         <h2 className="text-silver-mist text-lg font-semibold mb-4">About</h2>
         <div className="bg-shadow-grey p-6 rounded-xl text-soft-ivory max-w-3xl">

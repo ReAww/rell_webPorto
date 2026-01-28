@@ -7,7 +7,7 @@ const items = [
 
 export default function Testimonials(){
   return (
-    <section id="testimonials" className="py-12">
+    <section id="testimonials" className="py-12 anim-fade-up" data-animate>
       <div className="max-w-4xl mx-auto px-4 text-center">
         <h2 className="text-silver-mist text-lg font-semibold mb-6">Testimonials</h2>
         <div className="grid gap-6 grid-cols-1 md:grid-cols-2">

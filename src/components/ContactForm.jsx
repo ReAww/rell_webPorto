@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function ContactForm(){
   return (
-    <section id="contact" className="py-12">
+    <section id="contact" className="py-12 anim-fade-up" data-animate>
       <div className="max-w-3xl mx-auto px-4">
         <h2 className="text-silver-mist text-lg font-semibold mb-4">Get in touch</h2>
         <p className="text-silver-mist mb-4">Have a project or collaboration? Send a message and I’ll get back to you.</p>

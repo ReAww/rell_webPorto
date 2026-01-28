@@ -66,6 +66,39 @@
   /* Remove SVG-specific rules since we use a simple circular wrapper + contained image */
   .profile-svg { display: none }
   .profile-outline { display: none }
+
+  /* Animation utilities */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes glowPulse {
+    0% { box-shadow: 0 8px 24px rgba(229,229,229,0.06); }
+    50% { box-shadow: 0 12px 40px rgba(229,229,229,0.10); }
+    100% { box-shadow: 0 8px 24px rgba(229,229,229,0.06); }
+  }
+
+  .anim-fade-up { opacity: 0; transform: translateY(12px); }
+  .anim-fade-up.in-view { animation: fadeUp 700ms cubic-bezier(.2,.8,.2,1) both; }
+
+  .btn-animated {
+    @apply transition-transform duration-300 ease-[cubic-bezier(.2,.8,.2,1)];
+  }
+  .btn-animated:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(0,0,0,0.45); }
+
+  .rez-badge {
+    @apply inline-flex items-center px-2 py-0.5 rounded text-xs bg-deep-charcoal text-silver-mist border border-muted-slate;
+    transition: transform 400ms ease, box-shadow 400ms ease;
+  }
+  .rez-badge:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(229,229,229,0.06); }
+
+  .card-animated {
+    @apply rounded-xl; 
+    transition: transform 420ms cubic-bezier(.2,.8,.2,1), box-shadow 420ms cubic-bezier(.2,.8,.2,1);
+  }
+  .card-animated:hover { transform: translateY(-6px); box-shadow: 0 18px 40px rgba(0,0,0,0.55); }
+
 }
 
 /* Body background / global text */

@@ -19,7 +19,7 @@ const cases = [
 
 export default function CaseStudies(){
   return (
-    <section id="case-studies" className="py-12">
+    <section id="case-studies" className="py-12 anim-fade-up" data-animate>
       <div className="max-w-7xl mx-auto px-4">
         <h2 className="text-silver-mist text-lg font-semibold mb-6">Case Studies</h2>
         <div className="grid gap-6 grid-cols-1 md:grid-cols-2">

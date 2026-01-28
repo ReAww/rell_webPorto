@@ -43,7 +43,7 @@ export default function Header(){
         <div className="flex items-baseline gap-3">
           <div className="text-soft-ivory font-semibold">Farell Rhezky Alvianto</div>
           <div className="text-silver-mist font-medium">— Portfolio</div>
-          <div className="ml-3 px-2 py-0.5 text-xs rounded bg-deep-charcoal text-silver-mist border border-muted-slate">RezCode</div>
+          <div className="rez-badge">RezCode</div>
         </div>
 
         <nav className="hidden md:flex items-center space-x-4">
