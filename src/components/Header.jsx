@@ -61,9 +61,9 @@ export default function Header(){
       </div>
 
       {/* Mobile menu panel */}
-      <div className={`fixed inset-0 z-40 transition-opacity ${open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`} aria-hidden={!open}>
+      <div className={`fixed inset-0 z-40 transition-opacity overflow-hidden ${open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`} aria-hidden={!open}>
         <div className="absolute inset-0 bg-black/40" onClick={()=>setOpen(false)} />
-        <aside id="mobile-menu" ref={panelRef} tabIndex={-1} className={`absolute right-0 top-0 h-full w-64 bg-deep-charcoal text-soft-ivory p-6 transform transition-transform ${open ? 'translate-x-0' : 'translate-x-full'}`}>
+        <aside id="mobile-menu" ref={panelRef} tabIndex={-1} className={`fixed right-0 top-0 h-full w-64 bg-deep-charcoal text-soft-ivory p-6 transform transition-transform ${open ? 'translate-x-0' : 'translate-x-full'}`}>
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-baseline gap-3">
               <div className="text-soft-ivory font-semibold">Farell Rhezky Alvianto</div>
