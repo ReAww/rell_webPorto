@@ -79,8 +79,10 @@
     100% { box-shadow: 0 8px 24px rgba(229,229,229,0.06); }
   }
 
-  .anim-fade-up { opacity: 0; transform: translateY(12px); }
-  .anim-fade-up.in-view { animation: fadeUp 700ms cubic-bezier(.2,.8,.2,1) both; }
+    /* Make animated sections visible by default to avoid blank UI
+      JS will add `.in-view` to trigger the animation when appropriate. */
+    .anim-fade-up { opacity: 1; transform: none; }
+    .anim-fade-up.in-view { animation: fadeUp 700ms cubic-bezier(.2,.8,.2,1) both; }
 
   .btn-animated {
     @apply transition-transform duration-300 ease-[cubic-bezier(.2,.8,.2,1)];
