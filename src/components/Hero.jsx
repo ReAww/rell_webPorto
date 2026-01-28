@@ -16,7 +16,7 @@ export default function Hero(){
         </div>
         <div className="flex-shrink-0">
           <div className="profile-wrapper" aria-hidden={false}>
-            <img className="profile-img" src={profile} alt="Profile" object-cover />
+            <img className="profile-img" src={profile} alt="Profile" />
           </div>
         </div>
       </div>
