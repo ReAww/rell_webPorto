@@ -1,0 +1,77 @@
+@tailwind components;
+@tailwind utilities;
+
+/* Elegant Noir CSS variables (fallbacks and non-Tailwind uses) */
+:root {
+  --deep-charcoal: #0D0D0D;
+  --shadow-grey:  #262626;
+  --muted-slate:  #595959;
+  --silver-mist:  #A6A6A6;
+  --soft-ivory:   #E5E5E5;
+    /* Profile outline / glow controls */
+    --profile-outline-radius: 12; /* px for dilation */
+    --profile-outline-blur: 6; /* stdDeviation for blur */
+    --profile-outline-opacity: 0.14;
+    --profile-glow-color: #E5E5E5;
+    --profile-glow-opacity: 0.10;
+}
+
+/* Component helper classes removed — using inline Tailwind utilities in JSX now */
+
+/* Profile image mask + hover animation */
+@layer components {
+  .profile-wrapper {
+    position: relative;
+    @apply inline-block rounded-full overflow-hidden bg-shadow-grey w-56 h-56 p-2 shadow-2xl;
+    /* subtle smoothing for transforms */
+    @apply transition-transform duration-500 ease-[cubic-bezier(.2,.8,.2,1)];
+  }
+
+  .profile-wrapper:hover {
+    @apply -translate-y-1 scale-105;
+    box-shadow: 0 20px 48px rgba(0,0,0,0.65);
+  }
+
+  .profile-wrapper::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    /* keep an overlay gradient for depth */
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.22));
+    mix-blend-mode: overlay;
+    opacity: 0;
+    transition: opacity 300ms ease;
+  }
+
+  .profile-wrapper:hover::after { opacity: 1 }
+
+  .profile-img {
+    @apply block w-full h-full object-contain; 
+    transition: transform 500ms cubic-bezier(.2,.8,.2,1), filter 500ms cubic-bezier(.2,.8,.2,1), opacity 300ms ease;
+    transform-origin: center;
+    will-change: transform, filter, opacity;
+    background: transparent;
+    /* nudge image slightly down to remove visual gap (increased by 5px) */
+    transform: translateY(8px);
+  }
+
+  .profile-wrapper:hover .profile-img {
+    /* keep the downward nudge during hover while adding rotation/scale (increased by 5px) */
+    transform: translateY(8px) rotate(2deg) scale(1.05);
+    filter: saturate(1.05) contrast(1.02);
+  }
+
+  /* SVG profile styling (for silhouette stroke + hover) */
+  /* Remove SVG-specific rules since we use a simple circular wrapper + contained image */
+  .profile-svg { display: none }
+  .profile-outline { display: none }
+}
+
+/* Body background / global text */
+body {
+  background-color: var(--deep-charcoal); /* Deep Charcoal */
+  color: var(--soft-ivory);                /* Soft Ivory */
+}
+
+/* Keep this file minimal — use Tailwind utilities and the above components */
