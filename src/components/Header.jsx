@@ -40,13 +40,19 @@ export default function Header(){
   return (
     <header className="bg-transparent backdrop-blur-sm">
       <div className="max-w-7xl mx-auto w-full flex items-center justify-between px-4 py-4">
-        <div className="text-soft-ivory font-semibold">Farell Rhezky Alvianto <span className="text-silver-mist font-medium">— Portfolio</span></div>
+        <div className="flex items-baseline gap-3">
+          <div className="text-soft-ivory font-semibold">Farell Rhezky Alvianto</div>
+          <div className="text-silver-mist font-medium">— Portfolio</div>
+          <div className="ml-3 px-2 py-0.5 text-xs rounded bg-deep-charcoal text-silver-mist border border-muted-slate">RezCode</div>
+        </div>
 
-        <nav className="hidden md:flex items-center space-x-6">
+        <nav className="hidden md:flex items-center space-x-4">
           <a className="text-silver-mist hover:text-soft-ivory font-medium" href="#home">Home</a>
           <a className="text-silver-mist hover:text-soft-ivory font-medium" href="#projects">Projects</a>
+          <a className="text-silver-mist hover:text-soft-ivory font-medium" href="#case-studies">Case Studies</a>
           <a className="text-silver-mist hover:text-soft-ivory font-medium" href="#about">About</a>
           <a className="text-silver-mist hover:text-soft-ivory font-medium" href="#contact">Contact</a>
+          <a className="ml-3 inline-flex items-center px-3 py-1 bg-shadow-grey text-soft-ivory rounded-md font-medium" href="/resume.pdf" target="_blank" rel="noreferrer">Resume</a>
         </nav>
 
         <div className="md:hidden">
@@ -59,7 +65,11 @@ export default function Header(){
         <div className="absolute inset-0 bg-black/40" onClick={()=>setOpen(false)} />
         <aside id="mobile-menu" ref={panelRef} tabIndex={-1} className={`absolute right-0 top-0 h-full w-64 bg-deep-charcoal text-soft-ivory p-6 transform transition-transform ${open ? 'translate-x-0' : 'translate-x-full'}`}>
           <div className="flex items-center justify-between mb-6">
-            <div className="text-soft-ivory font-semibold">Your Name</div>
+            <div className="flex items-baseline gap-3">
+              <div className="text-soft-ivory font-semibold">Farell Rhezky Alvianto</div>
+              <div className="text-silver-mist font-medium">— Portfolio</div>
+              <div className="ml-2 px-2 py-0.5 text-xs rounded bg-deep-charcoal text-silver-mist border border-muted-slate">RezCode</div>
+            </div>
             <button aria-label="Close menu" onClick={()=>setOpen(false)} className="text-silver-mist text-xl">✕</button>
           </div>
           <nav className="flex flex-col gap-4">
@@ -67,6 +77,7 @@ export default function Header(){
             <a onClick={()=>setOpen(false)} className="text-soft-ivory hover:text-silver-mist font-medium" href="#projects">Projects</a>
             <a onClick={()=>setOpen(false)} className="text-soft-ivory hover:text-silver-mist font-medium" href="#about">About</a>
             <a onClick={()=>setOpen(false)} className="text-soft-ivory hover:text-silver-mist font-medium" href="#contact">Contact</a>
+            <a onClick={()=>setOpen(false)} className="inline-flex items-center mt-3 px-3 py-1 bg-shadow-grey text-soft-ivory rounded-md font-medium" href="/resume.pdf" target="_blank" rel="noreferrer">Resume</a>
           </nav>
         </aside>
       </div>
