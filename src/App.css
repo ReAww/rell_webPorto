@@ -99,6 +99,35 @@
   }
   .card-animated:hover { transform: translateY(-6px); box-shadow: 0 18px 40px rgba(0,0,0,0.55); }
 
+  /* Tag tooltip: uses data-desc attribute for tooltip content */
+  .tag-tooltip {
+    @apply relative inline-block text-xs bg-deep-charcoal text-silver-mist px-2 py-1 rounded cursor-default;
+  }
+  .tag-tooltip:focus { outline: none }
+  .tag-tooltip::after {
+    content: attr(data-desc);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%) translateY(8px);
+    bottom: -9999px; /* hidden by default */
+    white-space: nowrap;
+    background: rgba(230,230,230,0.04);
+    color: var(--soft-ivory);
+    padding: 6px 8px;
+    border-radius: 6px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+    font-size: 12px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 220ms ease, transform 220ms ease;
+  }
+  .tag-tooltip:hover::after,
+  .tag-tooltip:focus::after {
+    bottom: calc(-1.75rem);
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+
 }
 
 /* Body background / global text */

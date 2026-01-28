@@ -6,6 +6,16 @@ const sample = [
   {title:'Design System',desc:'Reusable components & tokens for consistent UI.',tags:['Components','Design'], demo:'#', repo:'#'}
 ]
 
+const tagDescriptions = {
+  React: 'Component-driven UI using React and hooks',
+  Vite: 'Built and served with Vite for fast dev reloads',
+  CSS: 'Modern CSS, responsive layouts and utilities',
+  JS: 'Vanilla JavaScript logic and DOM handling',
+  LocalStorage: 'Client-side persistence for offline UX',
+  Components: 'Reusable design system components',
+  Design: 'Thoughtful UI/UX and visual system'
+}
+
 export default function Projects(){
   return (
     <section id="projects" className="py-12 anim-fade-up" data-animate>
@@ -16,7 +26,9 @@ export default function Projects(){
             <article key={p.title} className="bg-shadow-grey p-5 rounded-xl border border-muted-slate card-animated">
               <h3 className="text-soft-ivory font-semibold text-lg">{p.title}</h3>
               <p className="text-silver-mist mt-2">{p.desc}</p>
-              <div className="mt-4 flex flex-wrap gap-2">{p.tags.map(t=> <span key={t} className="text-xs bg-deep-charcoal text-silver-mist px-2 py-1 rounded">{t}</span>)}</div>
+              <div className="mt-4 flex flex-wrap gap-2">{p.tags.map(t=> (
+                <span key={t} tabIndex={0} data-desc={tagDescriptions[t] || ''} className="tag-tooltip">{t}</span>
+              ))}</div>
               <div className="mt-4 flex items-center gap-3">
                 {p.demo && <a className="px-3 py-1 bg-shadow-grey text-soft-ivory rounded text-sm" href={p.demo} target="_blank" rel="noreferrer">Live demo</a>}
                 {p.repo && <a className="px-3 py-1 border border-muted-slate text-silver-mist rounded text-sm" href={p.repo} target="_blank" rel="noreferrer">Repo</a>}
