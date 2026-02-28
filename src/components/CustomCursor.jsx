@@ -1,30 +1,53 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useCallback } from "react";
 import { motion, useSpring } from "framer-motion";
 
 export default function CustomCursor() {
-  const [isHovered, setIsHovered] = useState(false);
+  const isHoveredRef = useRef(false);
+  const [isHovered, setIsHovered] = React.useState(false);
 
-  // Spring yang sangat snappy untuk kesan teknologi tinggi
   const cursorX = useSpring(0, { stiffness: 1000, damping: 45 });
   const cursorY = useSpring(0, { stiffness: 1000, damping: 45 });
 
+  // Throttle with rAF — getComputedStyle is expensive on every mousemove
+  const rafId = useRef(null);
+  const lastEvent = useRef(null);
+
+  const processMove = useCallback(() => {
+    if (!lastEvent.current) return;
+    const e = lastEvent.current;
+
+    cursorX.set(e.clientX);
+    cursorY.set(e.clientY);
+
+    const target = e.target;
+    const isPointer =
+      target.closest('a') ||
+      target.closest('button') ||
+      window.getComputedStyle(target).cursor === 'pointer';
+
+    const hovered = !!isPointer;
+    if (hovered !== isHoveredRef.current) {
+      isHoveredRef.current = hovered;
+      setIsHovered(hovered);
+    }
+
+    rafId.current = null;
+  }, [cursorX, cursorY]);
+
   useEffect(() => {
     const moveMouse = (e) => {
-      cursorX.set(e.clientX);
-      cursorY.set(e.clientY);
-
-      const target = e.target;
-      const isPointer = 
-        target.closest('a') || 
-        target.closest('button') || 
-        window.getComputedStyle(target).cursor === 'pointer';
-      
-      setIsHovered(!!isPointer);
+      lastEvent.current = e;
+      if (!rafId.current) {
+        rafId.current = requestAnimationFrame(processMove);
+      }
     };
 
     window.addEventListener("mousemove", moveMouse);
-    return () => window.removeEventListener("mousemove", moveMouse);
-  }, [cursorX, cursorY]);
+    return () => {
+      window.removeEventListener("mousemove", moveMouse);
+      if (rafId.current) cancelAnimationFrame(rafId.current);
+    };
+  }, [processMove]);
 
   return (
     <div className="fixed inset-0 pointer-events-none z-[999999] hidden md:block">
@@ -39,9 +62,8 @@ export default function CustomCursor() {
           mixBlendMode: "difference",
         }}
         animate={{
-          // MENGECIL SAAT HOVER (dari 1 ke 0.4)
           scale: isHovered ? 0.4 : 1,
-          borderWidth: isHovered ? "4px" : "1px", // Menebal saat mengecil
+          borderWidth: isHovered ? "4px" : "1px",
           opacity: isHovered ? 1 : 0.4,
         }}
         transition={{ type: "spring", stiffness: 400, damping: 25 }}
@@ -58,7 +80,6 @@ export default function CustomCursor() {
           mixBlendMode: "difference",
         }}
         animate={{
-          // Berubah dari titik bulat kecil menjadi garis bidik vertikal
           width: isHovered ? "1px" : "3px",
           height: isHovered ? "20px" : "3px",
           borderRadius: isHovered ? "0%" : "50%",

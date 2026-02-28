@@ -1,13 +1,23 @@
 import React, { useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 export default function WelcomeScreen({ onComplete }) {
+  const prefersReduced = useReducedMotion();
+
   useEffect(() => {
+    // If user prefers reduced motion, skip immediately
+    if (prefersReduced) {
+      onComplete();
+      return;
+    }
     const timer = setTimeout(() => {
       onComplete();
     }, 2200);
     return () => clearTimeout(timer);
-  }, [onComplete]);
+  }, [onComplete, prefersReduced]);
+
+  // Don't render anything if we're going to skip
+  if (prefersReduced) return null;
 
   return (
     <motion.div
@@ -30,14 +40,14 @@ export default function WelcomeScreen({ onComplete }) {
           className="relative flex flex-col items-center text-center"
         >
           {/* Top Divider */}
-          <motion.div 
+          <motion.div
             initial={{ width: 0 }}
             animate={{ width: "100%" }}
             transition={{ duration: 0.8, delay: 0.2 }}
             className="h-[1px] bg-gradient-to-r from-transparent via-white/40 to-transparent mb-6"
           />
 
-          {/* Judul Utama - Responsive Flex */}
+          {/* Judul Utama */}
           <h1 className="text-white font-light text-base sm:text-lg md:text-2xl tracking-[0.4em] sm:tracking-[0.6em] uppercase flex flex-wrap items-center justify-center gap-y-2 overflow-hidden">
             <motion.span
               initial={{ y: "100%" }}
@@ -47,7 +57,7 @@ export default function WelcomeScreen({ onComplete }) {
             >
               Farell Rhezky
             </motion.span>
-            
+
             <motion.span
               initial={{ opacity: 0 }}
               animate={{ opacity: [0, 1, 0, 1] }}
@@ -78,7 +88,7 @@ export default function WelcomeScreen({ onComplete }) {
           </motion.p>
 
           {/* Bottom Divider */}
-          <motion.div 
+          <motion.div
             initial={{ width: 0 }}
             animate={{ width: "40%" }}
             transition={{ duration: 0.6, delay: 1.4 }}
@@ -89,7 +99,7 @@ export default function WelcomeScreen({ onComplete }) {
 
       {/* Footer Status */}
       <div className="absolute bottom-12 flex flex-col items-center gap-2">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.4 }}
           transition={{ delay: 1.6 }}

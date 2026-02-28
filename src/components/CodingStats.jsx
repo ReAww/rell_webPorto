@@ -1,23 +1,52 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { FiGithub, FiTerminal, FiCode } from "react-icons/fi";
 
+// Skeleton shimmer while GitHub stat images load
+function ImgWithSkeleton({ src, alt, className }) {
+  const [loaded, setLoaded] = useState(false);
+  const [error, setError] = useState(false);
+
+  return (
+    <div className="relative w-full">
+      {!loaded && !error && (
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="w-full h-32 rounded-xl bg-white/[0.03] animate-pulse" />
+        </div>
+      )}
+      {error && (
+        <div className="w-full h-32 rounded-xl bg-white/[0.03] flex items-center justify-center">
+          <span className="text-white/20 font-mono text-[10px] uppercase tracking-widest">Unable to load stats</span>
+        </div>
+      )}
+      <img
+        src={src}
+        alt={alt}
+        loading="lazy"
+        decoding="async"
+        onLoad={() => setLoaded(true)}
+        onError={() => setError(true)}
+        className={`${className} ${loaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500`}
+      />
+    </div>
+  );
+}
+
 export default function CodingStats() {
-  const githubUsername = "ReAww"; 
-  const theme = "transparent";
+  const githubUsername = "ReAww";
 
   return (
     <section id="coding-stats" className="py-16 md:py-24 bg-[#0D0D0D]">
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
         className="max-w-7xl mx-auto px-4"
       >
-        
-        {/* Header - Berwibawa */}
-        <motion.div 
+
+        {/* Header */}
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -34,31 +63,29 @@ export default function CodingStats() {
 
         {/* Bento Grid Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          
+
           {/* Main Contribution Chart */}
-          <motion.div 
+          <motion.div
             whileHover={{ y: -5 }}
             className="md:col-span-2 p-8 rounded-3xl bg-[#141414] border border-white/5 flex flex-col items-center justify-center min-h-[300px] group relative overflow-hidden"
           >
             <div className="absolute top-4 left-6 flex items-center gap-2">
-                <FiCode className="text-white/20" />
-                <span className="text-[10px] font-mono text-white/20 uppercase tracking-widest">Global Activity</span>
+              <FiCode className="text-white/20" />
+              <span className="text-[10px] font-mono text-white/20 uppercase tracking-widest">Global Activity</span>
             </div>
-            
-            {/* GitHub Stats Card API */}
-            <img 
+            <ImgWithSkeleton
               src={`https://github-readme-stats.vercel.app/api?username=${githubUsername}&show_icons=true&theme=dark&hide_border=true&bg_color=141414&title_color=ffffff&text_color=A6A6A6&icon_color=ffffff`}
               alt="GitHub Stats"
               className="w-full max-w-lg transition-all duration-500 group-hover:scale-105"
             />
           </motion.div>
 
-          {/* Languages Pie Chart / Most Used Languages */}
-          <motion.div 
+          {/* Most Used Languages */}
+          <motion.div
             whileHover={{ y: -5 }}
             className="p-8 rounded-3xl bg-[#141414] border border-white/5 flex flex-col items-center justify-center group"
           >
-            <img 
+            <ImgWithSkeleton
               src={`https://github-readme-stats.vercel.app/api/top-langs/?username=${githubUsername}&layout=compact&theme=dark&hide_border=true&bg_color=141414&title_color=ffffff&text_color=A6A6A6&langs_count=5`}
               alt="Top Languages"
               className="w-full transition-all duration-500 group-hover:scale-110"
@@ -66,7 +93,7 @@ export default function CodingStats() {
           </motion.div>
 
           {/* Call to Action GitHub */}
-          <motion.div 
+          <motion.div
             whileHover={{ y: -5 }}
             className="md:col-span-3 p-8 rounded-3xl bg-gradient-to-r from-[#141414] to-[#0D0D0D] border border-white/5 flex flex-col md:flex-row items-center justify-between gap-6"
           >
@@ -79,9 +106,9 @@ export default function CodingStats() {
                 <p className="text-[#A6A6A6] text-xs">Seeing every commit as a step towards mastering the tech era.</p>
               </div>
             </div>
-            <a 
-              href={`https://github.com/${githubUsername}`} 
-              target="_blank" 
+            <a
+              href={`https://github.com/${githubUsername}`}
+              target="_blank"
               rel="noreferrer"
               className="px-6 py-3 bg-white text-black font-bold text-xs uppercase tracking-widest rounded-xl hover:bg-white/80 transition-all flex items-center gap-2"
             >

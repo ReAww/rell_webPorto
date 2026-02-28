@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import Typewriter from "typewriter-effect";
 import profile from '../assets/profile.png';
@@ -17,7 +17,7 @@ export default function Hero() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
 
-  const handleMouseMove = (e) => {
+  const handleMouseMove = useCallback((e) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const mouseX = e.clientX - rect.left;
     const mouseY = e.clientY - rect.top;
@@ -25,7 +25,7 @@ export default function Hero() {
     x.set(mouseX / rect.width - 0.5);
     y.set(mouseY / rect.height - 0.5);
     setMousePos({ x: mouseX, y: mouseY });
-  };
+  }, [x, y]);
 
   return (
     <section id="home" className="min-h-screen flex items-center justify-center bg-transparent pt-28 pb-12 lg:py-20 overflow-hidden relative">
@@ -101,8 +101,10 @@ export default function Hero() {
               <motion.img
                 src={profile}
                 alt="Farell Rhezky Alvianto"
+                loading="eager"
+                fetchpriority="high"
                 animate={{
-                  z: isHovered ? 80 : 0, // Efek pop-out tetap aktif
+                  z: isHovered ? 80 : 0,
                   y: isHovered ? -30 : 0,
                   scale: isHovered ? 1.1 : 1,
                 }}

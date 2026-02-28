@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { motion } from "framer-motion";
 import {
   SiReact,
@@ -12,28 +12,20 @@ import {
 } from "react-icons/si";
 
 export default function About() {
-  const skills = [
+  const skills = useMemo(() => [
     { name: "React", icon: <SiReact />, color: "hover:text-[#61DAFB]" },
-    {
-      name: "JavaScript",
-      icon: <SiJavascript />,
-      color: "hover:text-[#F7DF1E]",
-    },
-    {
-      name: "Tailwind",
-      icon: <SiTailwindcss />,
-      color: "hover:text-[#06B6D4]",
-    },
+    { name: "JavaScript", icon: <SiJavascript />, color: "hover:text-[#F7DF1E]" },
+    { name: "Tailwind", icon: <SiTailwindcss />, color: "hover:text-[#06B6D4]" },
     { name: "PHP", icon: <SiPhp />, color: "hover:text-[#4F5B93]" },
     { name: "Vite", icon: <SiVite />, color: "hover:text-[#646CFF]" },
     { name: "Node.js", icon: <SiNodedotjs />, color: "hover:text-[#339933]" },
     { name: "HTML5", icon: <SiHtml5 />, color: "hover:text-[#E34F26]" },
     { name: "CSS3", icon: <SiCss3 />, color: "hover:text-[#1572B6]" },
-  ];
+  ], []);
 
   return (
     <section id="about" className="py-24 bg-[#0D0D0D]">
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -73,8 +65,10 @@ export default function About() {
               —a Computer System student at Gunadarma University. What started
               as a childhood of{" "}
               <span className="text-white italic">building robots</span> has
-              evolved into a Tech Anthusiast. and Currently Becoming a <span className="text-white font-bold tracking-tight">
-                Web Developer. </span>
+              evolved into a Tech Enthusiast. and Currently Becoming a{" "}
+              <span className="text-white font-bold tracking-tight">
+                Web Developer.{" "}
+              </span>
               <br />
               <br />
               Currently, I am channeling my technical ambition into{" "}

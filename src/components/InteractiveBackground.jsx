@@ -15,17 +15,24 @@ export default function InteractiveBackground() {
 
     const mouse = { x: null, y: null };
     const clickPos = { x: null, y: null, active: false, radius: 0 };
-    
+
+    // --- Throttle mousemove with rAF flag ---
+    let rafPending = false;
     const handleMouseMove = (e) => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
+      if (rafPending) return;
+      rafPending = true;
+      requestAnimationFrame(() => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+        rafPending = false;
+      });
     };
 
     const handleMouseDown = (e) => {
       clickPos.x = e.clientX;
       clickPos.y = e.clientY;
       clickPos.active = true;
-      clickPos.radius = 0; // Reset radius gelombang kejut
+      clickPos.radius = 0;
     };
 
     window.addEventListener('resize', resize);
@@ -33,14 +40,17 @@ export default function InteractiveBackground() {
     window.addEventListener('mousedown', handleMouseDown);
     resize();
 
+    // Reduce particle count on mobile for better performance
+    const isMobile = window.innerWidth < 768;
+    const particleCount = isMobile ? 80 : 180;
+
     const particles = [];
-    const particleCount = 200; // Jumlah partikel dasar
 
     class Particle {
       constructor() {
         this.reset();
       }
-      reset() {     
+      reset() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
         this.size = Math.random() * 1.5 + 0.5;
@@ -56,31 +66,26 @@ export default function InteractiveBackground() {
         ctx.fill();
       }
       update() {
-        // --- LOGIKA HOVER (Mendorong Partikel) ---
         if (mouse.x !== null) {
-          let dx = mouse.x - this.x;
-          let dy = mouse.y - this.y;
-          let distance = Math.sqrt(dx * dx + dy * dy);
-          let maxDistance = 150;
-          
+          const dx = mouse.x - this.x;
+          const dy = mouse.y - this.y;
+          const distance = Math.hypot(dx, dy);
+          const maxDistance = 150;
+
           if (distance < maxDistance) {
-            let force = (maxDistance - distance) / maxDistance;
+            const force = (maxDistance - distance) / maxDistance;
             this.x -= (dx / distance) * force * this.density;
             this.y -= (dy / distance) * force * this.density;
           } else {
-            // Kembali ke posisi awal secara perlahan
             this.x -= (this.x - this.baseX) * 0.05;
             this.y -= (this.y - this.baseY) * 0.05;
           }
         }
 
-        // --- LOGIKA KLIK (Shockwave Effect) ---
         if (clickPos.active) {
-          let dx = clickPos.x - this.x;
-          let dy = clickPos.y - this.y;
-          let distance = Math.sqrt(dx * dx + dy * dy);
-          
-          // Jika partikel terkena radius gelombang kejut
+          const dx = clickPos.x - this.x;
+          const dy = clickPos.y - this.y;
+          const distance = Math.hypot(dx, dy);
           if (Math.abs(distance - clickPos.radius) < 20) {
             this.x -= (dx / distance) * 10;
             this.y -= (dy / distance) * 10;
@@ -93,15 +98,12 @@ export default function InteractiveBackground() {
 
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
-      // Update radius gelombang kejut saat klik
+
       if (clickPos.active) {
-        clickPos.radius += 15; // Kecepatan gelombang merambat
-        if (clickPos.radius > 600) { // Jarak maksimal gelombang
+        clickPos.radius += 15;
+        if (clickPos.radius > 600) {
           clickPos.active = false;
         }
-        
-        // Gambar lingkaran gelombang samar (Optional visual)
         ctx.strokeStyle = `rgba(255, 255, 255, ${1 - clickPos.radius / 600})`;
         ctx.lineWidth = 1;
         ctx.beginPath();
@@ -115,12 +117,24 @@ export default function InteractiveBackground() {
       });
       animationFrameId = requestAnimationFrame(animate);
     };
+
     animate();
+
+    // --- Pause animation when tab is not visible (saves CPU & battery) ---
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        cancelAnimationFrame(animationFrameId);
+      } else {
+        animate();
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
     return () => {
       window.removeEventListener('resize', resize);
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mousedown', handleMouseDown);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       cancelAnimationFrame(animationFrameId);
     };
   }, []);
@@ -129,7 +143,7 @@ export default function InteractiveBackground() {
     <canvas
       ref={canvasRef}
       className="fixed inset-0 pointer-events-none"
-      style={{ zIndex: -1, background: '#0D0D0D' }} 
+      style={{ zIndex: -1, background: '#0D0D0D' }}
     />
   );
 }
