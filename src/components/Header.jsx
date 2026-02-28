@@ -93,7 +93,7 @@ export default function Header() {
             <a
               key={item.name}
               href={item.href}
-              className={`text-[10px] font-mono uppercase tracking-[0.3em] transition-all relative group cursor-none ${
+              className={`text-[10px] font-mono uppercase tracking-[0.3em] transition-all relative group ${
                 activeSection === item.id ? 'text-white' : 'text-white/40 hover:text-white'
               }`}
             >
@@ -107,7 +107,7 @@ export default function Header() {
 
         {/* RIGHT SIDE */}
         <div className="flex items-center gap-5">
-          <a href="https://github.com/ReAww" target="_blank" rel="noreferrer" className="p-2 text-white/40 hover:text-white transition-colors cursor-none">
+          <a href="https://github.com/ReAww" target="_blank" rel="noreferrer" className="p-2 text-white/40 hover:text-white transition-colors">
             <FiGithub size={18} />
           </a>
 
@@ -116,7 +116,7 @@ export default function Header() {
             target="_blank"
             initial="initial"
             whileHover="hover"
-            className="relative hidden sm:flex items-center gap-3 px-6 py-2.5 bg-transparent border border-white/20 rounded-full overflow-hidden cursor-none group"
+            className="relative hidden sm:flex items-center gap-3 px-6 py-2.5 bg-transparent border border-white/20 rounded-full overflow-hidden group"
           >
             <motion.div
               variants={{ initial: { x: "-101%" }, hover: { x: 0 } }}
@@ -136,7 +136,7 @@ export default function Header() {
           {/* MOBILE TRIGGER */}
           <button
             onClick={() => setOpen(!open)}
-            className="md:hidden p-2 text-white/60 cursor-none relative z-[130]"
+            className="md:hidden p-2 text-white/60 relative z-[130]"
           >
             {open ? <FiX size={22} /> : <FiMenu size={22} />}
           </button>

@@ -24,7 +24,7 @@ export default function WelcomeScreen({ onComplete }) {
       initial={{ opacity: 1 }}
       exit={{ opacity: 0, filter: "blur(10px)" }}
       transition={{ duration: 0.5 }}
-      className="fixed inset-0 bg-[#0D0D0D] flex flex-col items-center justify-center z-[9999] cursor-none overflow-hidden px-6"
+      className="fixed inset-0 bg-[#0D0D0D] flex flex-col items-center justify-center z-[9999] overflow-hidden px-6"
     >
       {/* Scanning Lines */}
       <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_50%,rgba(255,255,255,0.02)_50%)] bg-[length:100%_4px] pointer-events-none" />

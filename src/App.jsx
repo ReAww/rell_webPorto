@@ -5,7 +5,6 @@ import './App.css'
 // === EAGER (above the fold / critical) ===
 import Header from './components/Header'
 import Hero from './components/Hero'
-import CustomCursor from './components/CustomCursor'
 import WelcomeScreen from './components/WelcomeScreen'
 import InteractiveBackground from './components/InteractiveBackground'
 
@@ -34,7 +33,7 @@ export default function App() {
     <div className="min-h-screen flex flex-col bg-transparent text-soft-ivory overflow-x-hidden selection:bg-white selection:text-black">
 
       <InteractiveBackground />
-      <CustomCursor />
+
 
       <AnimatePresence mode="wait">
         {showWelcome ? (

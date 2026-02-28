@@ -27,7 +27,7 @@ export default function Footer() {
             </h2>
             <a 
               href="mailto:rhezkyfarell@gmail.com" 
-              className="group flex items-center gap-3 text-white/40 hover:text-white transition-all duration-500 cursor-none"
+              className="group flex items-center gap-3 text-white/40 hover:text-white transition-all duration-500"
             >
               <FiMail className="text-xl" />
               <span className="text-sm font-mono tracking-widest uppercase">rhezkyfarell@gmail.com</span>
@@ -45,7 +45,7 @@ export default function Footer() {
                     key={link.name} 
                     href={link.href} 
                     target="_blank"
-                    className="text-xs text-white/50 hover:text-white flex items-center gap-2 transition-colors cursor-none w-fit"
+                    className="text-xs text-white/50 hover:text-white flex items-center gap-2 transition-colors w-fit"
                   >
                     {link.icon} {link.name}
                   </a>
@@ -59,14 +59,14 @@ export default function Footer() {
                 <a 
                   href="/resume.pdf" 
                   target="_blank"
-                  className="text-xs text-white/50 hover:text-white flex items-center gap-2 transition-colors cursor-none w-fit"
+                  className="text-xs text-white/50 hover:text-white flex items-center gap-2 transition-colors w-fit"
                 >
                   View Resume
                 </a>
                 <a 
                   href="/CV.pdf" 
                   target="_blank"
-                  className="text-xs text-white/50 hover:text-white flex items-center gap-2 transition-colors cursor-none w-fit"
+                  className="text-xs text-white/50 hover:text-white flex items-center gap-2 transition-colors w-fit"
                 >
                   View CV
                 </a>
