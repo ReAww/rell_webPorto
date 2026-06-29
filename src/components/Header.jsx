@@ -5,9 +5,6 @@ import { FiMenu, FiX, FiGithub, FiDownload } from 'react-icons/fi'
 const navLinks = [
   { name: 'About', href: '#about', id: 'about' },
   { name: 'Projects', href: '#projects', id: 'projects' },
-  { name: 'Experience', href: '#experience', id: 'experience' },
-  { name: 'Certificates', href: '#certificates', id: 'certificates' },
-  { name: 'Contact', href: '#contact', id: 'contact' },
 ]
 
 export default function Header() {
@@ -83,7 +80,7 @@ export default function Header() {
             Farell Rhezky
           </span>
           <span className="text-[8px] font-mono text-white/30 tracking-[0.2em] uppercase mt-1 italic">
-            Founder RezCode
+            Computer System
           </span>
         </div>
 

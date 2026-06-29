@@ -9,7 +9,6 @@ export default function Footer() {
     { name: 'Github', href: 'https://github.com/ReAww', icon: <FiGithub /> },
     { name: 'LinkedIn', href: 'https://www.linkedin.com/in/farell-rhezky?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app', icon: <FiLinkedin /> },
     { name: 'Personal Instagram', href: 'https://www.instagram.com/ayereell', icon: <FiInstagram /> },
-    { name: 'Rezcode Agency Instagram', href: 'https://www.instagram.com/rezcode.agency', icon: <FiInstagram /> },
   ]
 
   return (
@@ -82,7 +81,7 @@ export default function Footer() {
               Farell Rhezky Alvianto
             </span>
             <span className="text-[8px] font-mono text-white/20 uppercase tracking-[0.3em]">
-              Founder RezCode — Est 2024
+              Computer System Student
             </span>
           </div>
 
